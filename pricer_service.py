@@ -8,7 +8,7 @@ app = modal.App("pricer-service")
 image = (
     Image.debian_slim()
     .pip_install(
-        "huggingface_hub",  # ✅ 用 hub 正式包
+        "huggingface_hub", 
         "torch",
         "transformers",
         "bitsandbytes",
@@ -45,7 +45,7 @@ hf_cache_volume = Volume.from_name("hf-hub-cache", create_if_missing=True)
     image=image.env(
         {
             "HF_HUB_CACHE": CACHE_DIR,
-            "TRANSFORMERS_CACHE": CACHE_DIR,  # ✅ transformers 也走同一个 cache
+            "TRANSFORMERS_CACHE": CACHE_DIR,
         }
     ),
     secrets=secrets,
@@ -61,7 +61,6 @@ class Pricer:
         from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
         from peft import PeftModel
 
-        # ✅ 从 Modal Secret 读 token（你的 secret 里 key 就是 HF_TOKEN）
         hf_token = os.environ.get("HF_TOKEN")
         if not hf_token:
             raise RuntimeError(
@@ -75,7 +74,6 @@ class Pricer:
             bnb_4bit_quant_type="nf4",
         )
 
-        # ✅ 显式传 token，避免 gated repo 403
         self.tokenizer = AutoTokenizer.from_pretrained(
             BASE_MODEL, token=hf_token)
         self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -95,7 +93,6 @@ class Pricer:
             token=hf_token,
         )
 
-        # ✅ 推理模式
         self.fine_tuned_model.eval()
 
     @modal.method()
@@ -113,7 +110,7 @@ class Pricer:
             outputs = self.fine_tuned_model.generate(
                 inputs,
                 max_new_tokens=5,
-                do_sample=False,  # ✅ 稳定一点
+                do_sample=False, 
             )
 
         result = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
