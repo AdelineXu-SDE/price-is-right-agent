@@ -1,0 +1,52 @@
+# env/secrets
+.env
+.env.*
+.DS_Store
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# local artifacts
+products_vectorstore/
+memory.json
+
+# model weights
+*.pth
+*.pt
+
+# databases
+*.db
+*.sqlite3
+
+# logs
+*.log
+logs/
+
+# local/runtime
+.venv/
+__pycache__/
+.env
+memory.json
+products_vectorstore/
+
+# large weights (GitHub limit)
+*.pth
+# secrets
+.env
+
+# runtime state
+memory.json
+
+# local vector db
+products_vectorstore/
+
+# python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# large artifacts
+deep_neural_network.pth
+deep_neural_network.pth.bak

@@ -1,0 +1,47 @@
+[
+  {
+    "deal": {
+      "product_description": "The Samsung Galaxy Watch Ultra is a premium 47mm LTE Titanium smartwatch designed for both style and functionality. It features a circular display made with durable materials suitable for outdoor activities, providing GPS tracking, health monitoring, and custom apps for various needs. The robust design integrates a range of smart features including notifications, music control, and heart rate tracking, making it an ideal companion for fitness enthusiasts and tech-savvy users alike.",
+      "price": 350.0,
+      "url": "https://www.dealnews.com/Samsung-Galaxy-Watch-Ultra-47-mm-LTE-Titanium-Smartwatch-up-to-350-off-w-Trade-in-free-shipping/21663266.html?iref=rss-c142"
+    },
+    "estimate": 773.8138460593241,
+    "discount": 423.8138460593241
+  },
+  {
+    "deal": {
+      "product_description": "The Refurbished Unlocked Apple iPhone 14 Pro Max offers an impressive 256GB storage and a huge display, perfect for both media consumption and productivity. Enjoy advanced camera technology for stunning photos. This model is designed to provide a seamless user experience with 5G capabilities for faster downloads and streaming. Refurbished to high standards, it comes in various colors and can support all the latest apps from the App Store, accommodating any Apple enthusiast's needs.",
+      "price": 705.0,
+      "url": "https://www.dealnews.com/products/Apple/Unlocked-Apple-iPhone-14-Pro-Max-256-GB-Smartphone/462808.html?iref=rss-c142"
+    },
+    "estimate": 930.8824204895075,
+    "discount": 225.88242048950747
+  },
+  {
+    "deal": {
+      "product_description": "Lenovo LOQ 15.6\" gaming laptop pairs an Intel Core i5-12450HX octa-core processor with an Nvidia GeForce RTX 3050 6GB GPU and 12GB of RAM for solid midrange gaming and content creation performance. It features a 15.6\" 1920\u00d71080 display, a 512GB SSD, and ships with Windows 11 Home \u2014 a performance-oriented configuration that balances CPU power, GPU capability, and storage for mainstream gaming.",
+      "price": 520.0,
+      "url": "https://www.dealnews.com/products/Lenovo/Lenovo-LOQ-12-th-Gen-i5-15-6-Gaming-Laptop/476248.html?iref=rss-c39"
+    },
+    "estimate": 803.0639892578125,
+    "discount": 283.0639892578125
+  },
+  {
+    "deal": {
+      "product_description": "Lenovo Yoga 7i Ultra 7 is a 16\" touchscreen laptop with a 1920x1200 (2K) IPS display driven by an Intel Core Ultra 7 155U (12\u2011core Meteor Lake) processor. It includes 16GB of RAM and a 1TB SSD, runs Windows 11 Home 64\u2011bit, and targets creators and power users seeking a lightweight, high\u2011performance ultraportable with a large 16\" screen.",
+      "price": 650.0,
+      "url": "https://www.dealnews.com/Lenovo-Yoga-7-i-Ultra-7-16-Touchscreen-Laptop-for-650-free-shipping/21801549.html?iref=rss-c39"
+    },
+    "estimate": 1289.342791748047,
+    "discount": 639.3427917480469
+  },
+  {
+    "deal": {
+      "product_description": "Eco-Worthy 48V 100AH Server Rack Lithium Battery 6-pack is a 30.72 kWh energy storage solution built for rack installations. Each pack includes six 48V 100AH lithium modules with a 100A battery management system, full-metal shell, wireless connectivity, and smart monitoring; the units are sized to fit standard 3U cabinets and offer multi-layer protection for reliable backup power. It\u2019s intended for off-grid, backup, or server rack energy applications where high-capacity, monitored battery banks are required.",
+      "price": 4679.99,
+      "url": "https://www.dealnews.com/Eco-Worthy-48-V-100-AH-Server-Rack-Lithium-Battery-6-Pack-w-Monitor-for-4-680-free-shipping/21800487.html?iref=rss-c142"
+    },
+    "estimate": 8938.189401245118,
+    "discount": 4258.199401245118
+  }
+]

@@ -1,0 +1,15 @@
+chromadb
+openai
+sentence-transformers
+torch
+scikit-learn
+litellm
+pydantic
+tqdm
+feedparser
+beautifulsoup4
+requests
+plotly
+python-dotenv
+datasets
+modal
