@@ -1,31 +1,27 @@
 import os
 import modal
-from modal import Volume, Image
+from modal import Image, Volume
 
-# Setup - define our infrastructure with code!
+# Modal app definition
 app = modal.App("pricer-service")
 
-image = (
-    Image.debian_slim()
-    .pip_install(
-        "huggingface_hub", 
-        "torch",
-        "transformers",
-        "bitsandbytes",
-        "accelerate",
-        "peft",
-    )
+# Container image for the remote inference service
+image = Image.debian_slim().pip_install(
+    "huggingface_hub",
+    "torch",
+    "transformers",
+    "bitsandbytes",
+    "accelerate",
+    "peft",
 )
 
-# This collects the secret from Modal.
-# Make sure your Modal secret has key: HF_TOKEN
+# Modal secret must include key: HF_TOKEN
 secrets = [modal.Secret.from_name("huggingface-secret")]
 
 GPU = "T4"
 BASE_MODEL = "meta-llama/Llama-3.2-3B"
 
 PROJECT_NAME = "price"
-# your HF name here! Or use mine if you just want to reproduce my results.
 HF_USER = "ed-donner"
 RUN_NAME = "2025-11-28_18.47.07"
 PROJECT_RUN_NAME = f"{PROJECT_NAME}-{RUN_NAME}"
@@ -58,13 +54,13 @@ class Pricer:
     @modal.enter()
     def setup(self):
         import torch
-        from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
         from peft import PeftModel
+        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
         hf_token = os.environ.get("HF_TOKEN")
         if not hf_token:
             raise RuntimeError(
-                "HF_TOKEN not found. Please set HF_TOKEN in Modal secret 'huggingface-secret'."
+                "HF_TOKEN not found. Set HF_TOKEN in Modal secret 'huggingface-secret'."
             )
 
         quant_config = BitsAndBytesConfig(
@@ -74,26 +70,24 @@ class Pricer:
             bnb_4bit_quant_type="nf4",
         )
 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            BASE_MODEL, token=hf_token)
+        self.tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, token=hf_token)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.padding_side = "right"
 
-        self.base_model = AutoModelForCausalLM.from_pretrained(
+        base_model = AutoModelForCausalLM.from_pretrained(
             BASE_MODEL,
             quantization_config=quant_config,
             device_map="auto",
             token=hf_token,
         )
 
-        self.fine_tuned_model = PeftModel.from_pretrained(
-            self.base_model,
+        self.model = PeftModel.from_pretrained(
+            base_model,
             FINETUNED_MODEL,
             revision=REVISION,
             token=hf_token,
         )
-
-        self.fine_tuned_model.eval()
+        self.model.eval()
 
     @modal.method()
     def price(self, description: str) -> float:
@@ -107,19 +101,16 @@ class Pricer:
         inputs = self.tokenizer.encode(prompt, return_tensors="pt").to("cuda")
 
         with torch.no_grad():
-            outputs = self.fine_tuned_model.generate(
+            outputs = self.model.generate(
                 inputs,
                 max_new_tokens=5,
-                do_sample=False, 
+                do_sample=False,
             )
 
-        result = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        decoded = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-        # 更稳：有些输出可能没有严格包含 "Price is $"
-        if "Price is $" in result:
-            contents = result.split("Price is $", 1)[1]
-        else:
-            contents = result
+        # Handle cases where the expected prefix is not strictly present
+        contents = decoded.split(PREFIX, 1)[1] if PREFIX in decoded else decoded
 
         contents = contents.replace(",", "")
         match = re.search(r"[-+]?\d*\.\d+|\d+", contents)
