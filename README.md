@@ -93,7 +93,7 @@ For a sample product:
 
 **Final Ensemble Estimate (simple average):**
 
-(700 + 1200 + 285) / 3 ≈ 1057
+mean = (700 + 1200 + 285) / 3 ≈ 1057
 
 If the deal price is $350, the system computes:
 
